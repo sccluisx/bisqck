@@ -31,6 +31,12 @@
 # CLion
 .idea/**/workspace.xml
 .idea/**/tasks.xml
+.idea/bisqck.iml
+.idea/misc.xml
+.idea/modules.xml
+.idea/codeStyles/Project.xml
+.idea/codeStyles/codeStyleConfig.xml
+.idea/vcs.xml
 /cmake-build-*/
 
 # Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm, CLion, Android Studio and WebStorm
