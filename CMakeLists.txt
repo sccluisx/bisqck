@@ -32,5 +32,5 @@ add_definitions (${SEQAN_DEFINITIONS})
 set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${SEQAN_CXX_FLAGS}")
 
 # Add executable and link against SeqAn dependencies.
-add_executable (bisqck bisqck.cpp)
-target_link_libraries (bisqck ${SEQAN_LIBRARIES} ${CMAKE_THREAD_LIBS_INIT})
+add_executable (bisquick main.cpp bisquick.h bisquick.cpp utils.h utils.cpp)
+target_link_libraries (bisquick ${SEQAN_LIBRARIES} ${CMAKE_THREAD_LIBS_INIT})
