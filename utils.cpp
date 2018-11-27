@@ -8,7 +8,7 @@ BisquickOptions bisquickOptions;
 
 
 seqan::ArgumentParser::ParseResult
-parseCommandLine(BisquickOptions & options, int argc, char const ** argv)
+parseCommandLine(BisquickOptions & bisquickOptions, int argc, char const ** argv)
 {
     // Setup ArgumentParser.
     seqan::ArgumentParser parser("bisquick");
@@ -23,18 +23,30 @@ parseCommandLine(BisquickOptions & options, int argc, char const ** argv)
     addUsageLine(parser,
                  "[\\fIOPTIONS\\fP] \"\\fITEXT\\fP\"");
     addDescription(parser,
-                   "This program allows simple character modifications to "
-                   "each i-th character.");
+                   "Bisulfite analysis as fast as baking a pie! ");
 
 
     // We require one argument.
-    addArgument(parser, seqan::ArgParseArgument(
-            seqan::ArgParseArgument::STRING, "PATH"));
+    //addArgument(parser, seqan::ArgParseArgument(
+    //        seqan::ArgParseArgument::STRING, "PATH"));
 
     // Define Options
     addOption(parser, seqan::ArgParseOption(
             "k", "kmersize", "Indicate the length of the kmer.",
             seqan::ArgParseArgument::INTEGER, "INT"));
+    addOption(parser, seqan::ArgParseOption(
+            "gp", "genomePath", "Directory path of the genome.",
+            seqan::ArgParseArgument::STRING, "STRING"));
+    addOption(parser, seqan::ArgParseOption(
+            "r", "readsdir", "Directory of the reads.",
+            seqan::ArgParseArgument::STRING, "STRING"));
+    addOption(parser, seqan::ArgParseOption(
+            "o", "output", "Output file.",
+            seqan::ArgParseArgument::STRING, "STRING"));
+
+
+
+
     setDefaultValue(parser, "kmersize", "30");
 
     // Parse command line.
@@ -45,8 +57,55 @@ parseCommandLine(BisquickOptions & options, int argc, char const ** argv)
         return res;
 
     // Extract option values.
-    getOptionValue(options.kmersize, parser, "kmersize");
-    getArgumentValue(options.genomePath, parser, 0);
+    getOptionValue(bisquickOptions.kmersize, parser, "kmersize");
+    getOptionValue(bisquickOptions.genomePath, parser, "genomePath");
+    //getOptionValue(options.readsdir, parser, "readsdir");
+    //getOptionValue(options.output, parser, "output");
+    //getArgumentValue(options.genomePath, parser, 0);
     return seqan::ArgumentParser::PARSE_OK;
 
 }
+
+
+
+
+
+// --------------------------------------------------------------------------
+// Function open_directory(char * curdir);
+// --------------------------------------------------------------------------
+
+// receives a  directory curdir to open all files in it */
+std::vector<std::string> open_directory(char * curdir)
+{
+    std::vector<std::string> fastafiles;
+    DIR           *d;
+    struct dirent *dir;
+    d = opendir(curdir);
+    int file_counter=0;			 // file counter
+    if (d){
+        while ((dir = readdir(d)) != NULL){
+            if(dir->d_name)
+                if((std::strcmp(dir->d_name,".")) && (std::strcmp(dir->d_name,"..")) ) {
+                    int totsize = strlen(curdir)+strlen(dir->d_name);
+                    char * fastafile=NULL;
+                    fastafile = (char *)malloc(sizeof(char) * totsize);
+                    strcpy (fastafile,curdir);
+                    strcat (fastafile,"/");
+                    strcat (fastafile,dir->d_name);
+                    //std::cout << "___________________"<<fastafile<<"\n";
+                    fastafiles.emplace(fastafiles.begin(),fastafile);
+                    //if(filetype == 1)
+                    //openreads();
+                    //readfasta(fastafile,file_counter);
+                    free(fastafile);
+                    file_counter++;
+                }
+        }
+        closedir(d);
+    }
+    else{
+        std::cerr<<"Invalid directory"<<std::endl;
+    }
+    return fastafiles;
+}
+
