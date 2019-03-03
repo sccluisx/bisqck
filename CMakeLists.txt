@@ -2,8 +2,10 @@
 cmake_minimum_required (VERSION 3.0.0)
 set (SEQAN_INCLUDE_PATH "/opt/seqan/include")
 set(CMAKE_BUILD_TYPE Debug)
+set(CMAKE_BUILD_TYPE Release)
 set(CMAKE_BUILD_TYPE RelWithDebInfo)
-
+set(CMAKE_CXX_FLAGS_DEBUG "-g")
+set(CMAKE_CXX_FLAGS_RELEASE "-O3")
 # Name of project and that it is C++ only.
 project (bisqck CXX)
 
