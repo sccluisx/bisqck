@@ -17,6 +17,8 @@
 #include <seqan/sequence.h>
 #include <seqan/seq_io.h>
 
+#include "bisquick_index.h"
+
 /**
  * @brief  Structure to contain the options from command line
  */
@@ -24,10 +26,16 @@ struct BisquickOptions
 {
     unsigned kmersize;
     seqan::CharString genomePath;
+    seqan::CharString readsdir;
+    seqan::CharString output;
+
     int currfilesize;
     inline BisquickOptions() :
             kmersize(7),
-            genomePath("/home/lramirez/thesis/indata/toy")
+            genomePath("/home/lramirez/thesis/indata/toy"),
+            readsdir("/home/lramirez/thesis/tests/toyreads"),
+            output("./")
+
     {}
 } ;
 
@@ -36,6 +44,7 @@ extern int c_id_counter;
 
 
 extern std::shared_ptr<BisquickOptions> bisquickOptions;
+extern std::shared_ptr<CG_Index> cg_index;
 
 
 seqan::ArgumentParser::ParseResult

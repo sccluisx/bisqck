@@ -11,10 +11,11 @@
  */
 
 
+
 #include <iostream>
 #include <iomanip>
 #include <dirent.h>
-
+#include <memory>
 #include "bisquick.h"
 #include "bisquick_index.h"
 #include "utils.h"
@@ -40,12 +41,18 @@ int main(int argc, char const ** argv)
     // Otherwise, exit with code 0 (e.g. help was printed).
     if (parsecmdln != seqan::ArgumentParser::PARSE_OK)
         return parsecmdln == seqan::ArgumentParser::PARSE_ERROR;
+    std::cout<<"|||Bisquick - fast methylation estimates|||"<<std::endl;
+    std::cout<<"Bisquick options:"<<std::endl;
+    std::cout<<"Kmer Size:"<<bisquickOptions->kmersize<<std::endl;
+    std::cout<<"Reads directory:"<<bisquickOptions->genomePath<<std::endl;
+    std::cout<<"Reads directory:"<<bisquickOptions->genomePath<<std::endl;
     auto fastafile = open_directory(seqan::toCString(bisquickOptions->genomePath));
     auto i = create_index(fastafile);
 
     //auto i2 = createIntervalIndex();
 
     std::cout<< compressKmer("ACctt")<<std::endl;
+
 
 
 
@@ -62,7 +69,7 @@ int main(int argc, char const ** argv)
               << "kmersize\t" << bisquickOptions.kmersize<< '\n';
 */
 
-    kmerRecover(seqan::toCString(current_file),cg_index->seq_id[5], cg_index->position_seq[5], cg_index->position_seq[5]+7);
+    //kmerRecover(seqan::toCString(current_file),cg_index->seq_id[5], cg_index->position_seq[5], cg_index->position_seq[5]+7);
 
 
     return 0;

@@ -48,25 +48,29 @@ int create_index(std::vector<std::string> fastafile){
         ncpgs++;
         c_id_counter++;
     }
+    std::cout<<"Number of cg's: "<<ncpgs<<std::endl;
     cg_index->methylated.resize(cg_index->position_seq.size());
     cg_index->unmethylated.resize(cg_index->position_seq.size());
         //std::cout << '[' << beginPosition(finder) << ',' << endPosition(finder) << ")\t" << infix(finder) << std::endl;
 
-    std::for_each(cg_index->position_seq.begin(), cg_index->position_seq.end(), [seq](int o) {
+
+    // For each position where a cg exists we will generate all the kmers
+    std::for_each(cg_index->position_seq.begin(), cg_index->position_seq.end(), [seq](int cpos) {
 
         //std::cout<<infixWithLength(seq,cg_index->position_seq[o]-bisquickOptions->kmersize+2,bisquickOptions->kmersize)<<std::endl;
-        std::cout<<"("<<o<<")"<<std::endl;
-        auto substr = infixWithLength(seq,o,bisquickOptions->kmersize);
+        std::cout<<"("<<cpos<<")"<<std::endl;
+        auto substr = infixWithLength(seq,cpos,bisquickOptions->kmersize);
+        std::cout<<substr<<std::endl;
 //        for(int i = 0; i< bisquickOptions->kmersize; i++)
 //            std::cout<<"#"<<substr[i]<<std::endl;
         //std::cout<<infixWithLength(seq,o,bisquickOptions->kmersize)<<std::endl;
-        std::cout<<substr<<std::endl;
-        auto lambda =  []() { std::cout << "Code within a lambda expression" << std::endl; };
-        lambda();
+        //std::cout<<substr<<std::endl;
+        //auto lambda =  []() { std::cout << "Code within a lambda expression" << std::endl; };
+        //lambda();
         Dna5String t1= substr;
-        std::cout << "substr is: " << typeid(t1).name() << '\n';
+        //std::cout << "substr is: " << typeid(t1).name() << '\n';
 
-        std::unordered_map<Dna5String, int> umap;
+        //std::unordered_map<Dna5String, int> umap;
         // umap[substr]=2;
         //std::unordered_map<Dna5String, int> umap;
 

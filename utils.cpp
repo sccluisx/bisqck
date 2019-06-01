@@ -59,8 +59,8 @@ parseCommandLine(std::shared_ptr<BisquickOptions> bisquickOptions, int argc, cha
     // Extract option values.
     getOptionValue(bisquickOptions->kmersize, parser, "kmersize");
     getOptionValue(bisquickOptions->genomePath, parser, "genomePath");
-    //getOptionValue(options.readsdir, parser, "readsdir");
-    //getOptionValue(options.output, parser, "output");
+    getOptionValue(bisquickOptions->readsdir, parser, "readsdir");
+    getOptionValue(bisquickOptions->output, parser, "output");
     //getArgumentValue(options.genomePath, parser, 0);
     return seqan::ArgumentParser::PARSE_OK;
 
