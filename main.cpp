@@ -53,7 +53,7 @@ int main(int argc, char const ** argv)
 
     std::cout<< compressKmer("ACctt")<<std::endl;
 
-
+    std:seqan::cpuTime();
 
 
 

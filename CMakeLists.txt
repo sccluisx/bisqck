@@ -1,5 +1,6 @@
 # Minimum cmake version
 cmake_minimum_required (VERSION 3.0.0)
+set(CMAKE_PREFIX_PATH "opt/seqan/util/cmake")
 set (SEQAN_INCLUDE_PATH "/opt/seqan/include")
 set(CMAKE_BUILD_TYPE Debug)
 set(CMAKE_BUILD_TYPE Release)
